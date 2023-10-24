@@ -105,8 +105,8 @@ export default function Home() {
   const [name, setName] = useState('')
 
   const submit = (e: any) => {
-    const name = document.getElementById('name').value
-    setName(name)
+    const name = document.getElementById('name')
+    if (name) setName(name.value)
   }
 
   return (
