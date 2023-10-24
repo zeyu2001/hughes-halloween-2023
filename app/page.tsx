@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { Slide } from '@mui/material'
 
-const NameForm = (props) => {
+const NameForm = (props: { handleSubmit: (e: any) => void }) => {
 
   const [show, setShow] = useState(true)
 
@@ -13,7 +13,7 @@ const NameForm = (props) => {
         <h1 className="mb-8 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
           Hi, what&apos;s your name?
         </h1>
-        <form className="flex flex-col items-center w-full max-w-lg mx-auto mt-6" id="nameForm" onSubmit={(e) => {
+        <form className="flex flex-col items-center w-full max-w-lg mx-auto mt-6" id="nameForm" onSubmit={(e: any) => {
           e.preventDefault();
           props.handleSubmit(e)
           setShow(false)
@@ -29,7 +29,7 @@ const NameForm = (props) => {
   )
 }
 
-const Invoice = (props) => {
+const Invoice = (props: { name: string }) => {
 
   const [show, setShow] = useState(true)
 
@@ -104,7 +104,7 @@ export default function Home() {
 
   const [name, setName] = useState('')
 
-  const submit = (e) => {
+  const submit = (e: any) => {
     const name = document.getElementById('name').value
     setName(name)
   }
