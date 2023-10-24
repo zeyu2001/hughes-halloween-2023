@@ -106,7 +106,7 @@ export default function Home() {
 
   const submit = (e: any) => {
     const name = document.getElementById('name')
-    if (name) setName(name.value)
+    if (name) setName((name as HTMLInputElement).value)
   }
 
   return (
