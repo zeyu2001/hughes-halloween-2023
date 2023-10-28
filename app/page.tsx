@@ -24,10 +24,14 @@ const addCircle = (delay: number, range: number[], color: string, circles: any[]
 
 function Circle (x: number, y: number, c: string, v: { x: number, y: number }, range: number[]) {
 
+  const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+  const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0); 
+
   const container = document.getElementById('animate');
+
   let _this = this;
-  this.x = x;
-  this.y = y;
+  this.x = Math.min(x, vw - 350);
+  this.y = Math.min(y, vh - 650);
   this.color = c;
   this.v = v;
   this.range = range;
@@ -41,8 +45,8 @@ function Circle (x: number, y: number, c: string, v: { x: number, y: number }, r
 
   this.update = function() {
     if (_this.y > 800) {
-      _this.y = 80 + Math.random() * 4;
-      _this.x = _this.range[0] + Math.random() * _this.range[1];
+      _this.y = Math.min(80 + Math.random() * 4, vh - 650);
+      _this.x = Math.min(_this.range[0] + Math.random() * _this.range[1], vw - 350);
     }
     _this.y += _this.v.y;
     _this.x += _this.v.x;
