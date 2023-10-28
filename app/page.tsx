@@ -87,7 +87,7 @@ const Invoice = (props: { name: string }) => {
   useEffect(() => {
     let circles: any[] = [];
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 10; i++) {
       addCircle(i * 150, [10 + 0, 300], emoji[Math.floor(Math.random() * emoji.length)], circles);
       addCircle(i * 150, [10 + 0, -300], emoji[Math.floor(Math.random() * emoji.length)], circles);
       addCircle(i * 150, [10 - 200, -300], emoji[Math.floor(Math.random() * emoji.length)], circles);
