@@ -3,6 +3,57 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { Slide } from '@mui/material'
 
+const emoji = [
+  '🎃', '👻', '😱', '💀', '🕸️', '⚰️', '💸',
+  '<img style="max-width: 50px" src="/fawcett.jpg">',
+  '<img style="max-width: 50px" src="/hughes.png">',
+  '<img style="max-width: 50px" src="/exam.png">',
+  '<img style="max-width: 50px" src="/fminus.png">'
+]
+
+const addCircle = (delay: number, range: number[], color: string, circles: any[]) => {
+  setTimeout(() => {
+    // @ts-ignore
+    let c = new Circle(range[0] + Math.random() * range[1], 80 + Math.random() * 4, color, {
+      x: -0.15 + Math.random() * 0.3,
+      y: 1 + Math.random() * 1
+    }, range);
+    circles.push(c);
+  }, delay);
+}
+
+function Circle (x: number, y: number, c: string, v: { x: number, y: number }, range: number[]) {
+
+  const container = document.getElementById('animate');
+  let _this = this;
+  this.x = x;
+  this.y = y;
+  this.color = c;
+  this.v = v;
+  this.range = range;
+  this.element = document.createElement('span');
+  this.element.style.opacity = 0;
+  this.element.style.position = 'absolute';
+  this.element.style.fontSize = '50px';
+  this.element.style.color = 'hsl('+(Math.random()*360|0)+',80%,50%)';
+  this.element.innerHTML = c;
+  container?.appendChild(this.element);
+
+  this.update = function() {
+    if (_this.y > 800) {
+      _this.y = 80 + Math.random() * 4;
+      _this.x = _this.range[0] + Math.random() * _this.range[1];
+    }
+    _this.y += _this.v.y;
+    _this.x += _this.v.x;
+    this.element.style.opacity = 1;
+    this.element.style.transform = 'translate3d(' + _this.x + 'px, ' + _this.y + 'px, 0px)';
+    this.element.style.webkitTransform = 'translate3d(' + _this.x + 'px, ' + _this.y + 'px, 0px)';
+    this.element.style.mozTransform = 'translate3d(' + _this.x + 'px, ' + _this.y + 'px, 0px)';
+  };
+}
+
+
 const NameForm = (props: { handleSubmit: (e: any) => void }) => {
 
   const [show, setShow] = useState(true)
@@ -33,7 +84,38 @@ const Invoice = (props: { name: string }) => {
 
   const [show, setShow] = useState(true)
 
+  useEffect(() => {
+    let circles: any[] = [];
+
+    for (let i = 0; i < 5; i++) {
+      addCircle(i * 150, [10 + 0, 300], emoji[Math.floor(Math.random() * emoji.length)], circles);
+      addCircle(i * 150, [10 + 0, -300], emoji[Math.floor(Math.random() * emoji.length)], circles);
+      addCircle(i * 150, [10 - 200, -300], emoji[Math.floor(Math.random() * emoji.length)], circles);
+      addCircle(i * 150, [10 + 200, 300], emoji[Math.floor(Math.random() * emoji.length)], circles);
+      addCircle(i * 150, [10 - 400, -300], emoji[Math.floor(Math.random() * emoji.length)], circles);
+      addCircle(i * 150, [10 + 400, 300], emoji[Math.floor(Math.random() * emoji.length)], circles);
+      addCircle(i * 150, [10 - 600, -300], emoji[Math.floor(Math.random() * emoji.length)], circles);
+      addCircle(i * 150, [10 + 600, 300], emoji[Math.floor(Math.random() * emoji.length)], circles);
+    }
+
+    const animate = () => {
+      for (let i in circles) {
+        circles[i].update();
+      }
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  }, [])
+
   return (
+    <>
+    <div id="animate" style={{
+      margin: "0 auto",
+      width: "20px",
+      overflow: "visible",
+      position: "relative"
+    }}></div>
     <Slide direction="left" in={show} mountOnEnter unmountOnExit>
       <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 text-left">
         <h1 className="mb-8 text-3xl font-bold tracking-tight leading-none text-gray-900 dark:text-white">
@@ -97,6 +179,7 @@ const Invoice = (props: { name: string }) => {
         </p>
       </div>
     </Slide>
+    </>
   )
 }
 
