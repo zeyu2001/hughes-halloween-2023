@@ -29,8 +29,10 @@ function Circle (x: number, y: number, c: string, v: { x: number, y: number }, r
 
   const container = document.getElementById('animate');
 
+  const maxWidth = container?.parentElement?.offsetWidth || 0;
+
   let _this = this;
-  this.x = x % (vw / 2);
+  this.x = x % (maxWidth / 2);
   this.y = y;
   this.color = c;
   this.v = v;
@@ -46,7 +48,7 @@ function Circle (x: number, y: number, c: string, v: { x: number, y: number }, r
   this.update = function() {
     if (_this.y > 800) {
       _this.y = 80 + Math.random() * 4
-      _this.x = _this.range[0] + Math.random() * _this.range[1] % (vw / 2)
+      _this.x = _this.range[0] + Math.random() * _this.range[1] % (maxWidth / 2)
     }
     _this.y += _this.v.y;
     _this.x += _this.v.x;
