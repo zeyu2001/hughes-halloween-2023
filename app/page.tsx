@@ -140,7 +140,9 @@ const Invoice = (props: { name: string }) => {
           Attached is our &apos;Fees Request for Pre-Payment&apos;.
         </p>
         <p className="my-4">
-          Please make payment of £48,263.00 by and no later than 15th of September 2023. If paying from an International bank this can take several days.
+          Please make payment of 
+          <span className="text-red-500 text-2xl font-bold"> £48,263.00  </span>
+          by and no later than 15th of September 2023. If paying from an International bank this can take several days.
         </p>
         <p className="my-4">
           Please note that we are unable to confirm your membership until we have received your payment in our bank account.
